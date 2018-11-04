@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+'''
+@Autor: Ana Maria Sandoval Jimenez
+'''
+from tqdm import tqdm
+import datetime
+import sys
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pylab
+import seaborn as sns
+from fancyimpute import KNN
+plt.style.use('fivethirtyeight')
+pylab.rcParams['figure.figsize'] = (10.0, 8.0)
+
+# Supress unnecessary warnings so that presentation looks clean
+import warnings
+warnings.filterwarnings("ignore")
+
+# input test or train data plus region file
+try:
+    df = pd.read_csv(sys.argv[1])
+    region = pd.read_csv(sys.argv[2])
+    out_file = sys.argv[3]
+except IndexError:
+    print("usage: airquality-process INPUT-FILE REGION-FILE OUTPUT-FILE")
+    sys.exit(1)
+
+
+# one hot enconding for region
+X = df['region']
+X_hot = pd.get_dummies(X)
+X_hot.columns = region['Region']
+df = X_hot.join(df)
+
+# one hot encoding for date
+dates = df['date']
+
+# result = result.drop(['date'], axis=1)
+dates_sep = [date.split('-') for date in dates]
+
+date_fields = []
+for (year, month, day) in dates_sep:
+    datetime_obj = datetime.datetime(int(year), int(month), int(day))
+    weekday = datetime_obj.strftime('%A')
+    month = datetime_obj.strftime('%B')
+    date_fields.append([month, weekday])
+
+date_fields = pd.DataFrame(date_fields)
+date_fields.columns = ('Month', 'Weekday')
+
+date_hot = pd.DataFrame([])
+for column in ['Month', 'Weekday']:
+    dummies = pd.get_dummies(date_fields[column])
+    date_hot[dummies.columns] = dummies
+
+df  = date_hot.join(df) 
+
+# move mortality rate as first column
+cols = list(df)
+if 'mortality_rate' in cols:
+    # move the column to head of list using index, pop and insert
+    cols.insert(0,cols.pop(cols.index('mortality_rate')))
+    # use ix to reorder
+    df = df.ix[:, cols]
+
+# drop unnecessary columns 
+df = df.drop(['Id', 'date', 'region'], axis = 1)
+print(df.columns)
+
+# use fancyimpute to fill nan values
+raw_normalized = KNN(k=3).fit_transform(df)
+normalized_data = pd.DataFrame(raw_normalized)
+normalized_data.columns = df.columns
+normalized_data.to_csv(out_file, index=False)
