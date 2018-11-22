@@ -1,0 +1,19 @@
+Train shape:  (18403, 34)
+Test  shape:  (7886, 33)
+ 
+Train columns: 
+Index(['mortality_rate', 'April', 'August', 'December', 'February', 'January',
+       'July', 'June', 'March', 'May', 'November', 'October', 'September',
+       'Friday', 'Monday', 'Saturday', 'Sunday', 'Thursday', 'Tuesday',
+       'Wednesday', 'North East', 'North West', 'Yorkshire and The Humber',
+       'East Midlands', 'West Midlands', 'East of England', 'London',
+       'South East', 'South West', 'O3', 'PM10', 'PM25', 'NO2', 'T2M'],
+      dtype='object')
+Train columns: 
+Index(['April', 'August', 'December', 'February', 'January', 'July', 'June',
+       'March', 'May', 'November', 'October', 'September', 'Friday', 'Monday',
+       'Saturday', 'Sunday', 'Thursday', 'Tuesday', 'Wednesday', 'North East',
+       'North West', 'Yorkshire and The Humber', 'East Midlands',
+       'West Midlands', 'East of England', 'London', 'South East',
+       'South West', 'O3', 'PM10', 'PM25', 'NO2', 'T2M'],
+      dtype='object')

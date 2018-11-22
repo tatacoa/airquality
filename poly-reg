@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+'''
+@Autor: Ana Maria Sandoval Jimenez
+'''
+
+from pprint import pprint
+import sys
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pylab
+import seaborn as sns; sns.set()
+plt.style.use('fivethirtyeight')
+pylab.rcParams['figure.figsize'] = (10.0,8.0)
+
+import matplotlib.pyplot as plt
+
+import warnings
+warnings.filterwarnings("ignore")
+###################import pandas_profiling
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
+from sklearn.cross_validation import cross_val_score
+
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+# load preprocesed train test files
+try:
+    train = pd.read_csv(sys.argv[1])
+    test = pd.read_csv(sys.argv[2])
+except IndexError:
+    print("usage: linear-reg TRAIN-FILE TEST-FILE")
+    sys.exit(1)
+                    
+#Training a Polynomial Regression Model
+print('Train shape: ', train.shape)
+print('Test  shape: ', test.shape)
+print(" ")
+print('Train columns: ')
+pprint(train.columns)
+print('Train columns: ')
+pprint(test.columns)
+
+y = train['mortality_rate']
+X = train.drop(['mortality_rate'], axis=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 101)
+
+# Selecting the Best Model
+def PolynomialRegression(degree=2, **kwargs):
+    return make_pipeline(PolynomialFeatures(degree),
+                         LinearRegression(**kwargs))
+
+#print(np.ravel(X).shape)
+
+#plt.scatter(np.ravel(X), y, color='black')
+axis = plt.axis()
+for degree in [1, 2, 3]:
+    y_test = PolynomialRegression(degree).fit(X, y).predict(X_test)    
+    print('Poly Degree: ', degree)
+    print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+    print('MSE:', metrics.mean_squared_error(y_test, predictions))
+    print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+    # plt.plot(X_test.values.ravel(), y_test, label='degree={0}'.format(degree))
+   # plt.xlim(-0.1, 1.0)
+   # plt.ylim(-2, 12)
+   # plt.legend(loc='best');
+
+# Grid Search
+from sklearn.grid_search import GridSearchCV
+
+param_grid = {'polynomialfeatures__degree': np.arange(5),
+              'linearregression__fit_intercept': [True, False],
+              'linearregression__normalize': [True, False]}
+
+grid = GridSearchCV(PolynomialRegression(), param_grid, cv=7)
+
+pprint('Grid Scores: ', grid.fit(X,y))
+pprint('Best Parameters: ', grid.best_params_)
+
+model = grid.best_estimator_
+y_test = model.fit(X,y).predict(X_test)
+
