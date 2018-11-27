@@ -35,6 +35,8 @@ except IndexError:
     sys.exit(1)
                     
 #Training a Linear Regression Model
+train = train.drop('T2M', axis = 1)
+
 print('Train shape: ', train.shape)
 print('Test  shape: ', test.shape)
 print(" ")
@@ -42,6 +44,16 @@ print('Train columns: ')
 pprint(train.columns)
 print('Train columns: ')
 pprint(test.columns)
+# move year as first column in test file
+cols = list(test)
+if 'Year' in cols:
+    # move the column to head of list using index, pop and insert
+    cols.insert(0,cols.pop(cols.index('Year')))
+    # use ix to reorder
+    test = test.ix[:, cols]
+
+print(test.columns)
+
 
 y = train['mortality_rate']
 X = train.drop(['mortality_rate'], axis=1)
@@ -105,9 +117,26 @@ print(mean_squared_error(y_true, y_pred))
 print()
 
 
-# Predictions
-predictions = lm.predict(test)
-pred = pd.DataFrame(predictions)
-pred.to_csv('pred_2013.csv')
-# Metrics
+# Predictions for API data
+pred = lm.predict(test)
+
+#pred = pd.DataFrame(predictions)
+api_results= {
+    'Yorkshire and the Humber': pred[0],
+    'North West': pred[1],
+    'East of England': pred[2],
+    'London': pred[3],
+    'North East': pred[4],
+    'West Midlands': pred[5],
+    'East Midlands': pred[6],
+    'South West': pred[7],
+    'South East': pred[8]
+}
+
+import json
+
+data = json.dumps(api_results)
+with open('./web/data.js', 'w') as f:
+    f.write('data = ' + data)
+
 

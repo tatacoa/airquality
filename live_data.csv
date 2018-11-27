@@ -1,0 +1,10 @@
+date,region,O3,PM10,PM25,NO2
+2018-11-27,Yorkshire and the Humber,0.8,17,55,17.9
+2018-11-27,North West,3.3,8,55,18.7
+2018-11-27,East of England,20.7,30,46,27.0
+2018-11-27,London,1.1,39,96,45.8
+2018-11-27,North East,4.5,16,53,21.4
+2018-11-27,West Midlands,8.3,12,32,10.6
+2018-11-27,East Midlands,4.5,7,56,19.1
+2018-11-27,South West,2.5,13,57,17.4
+2018-11-27,South East,0.8,22,50,20.3

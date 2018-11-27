@@ -28,34 +28,28 @@ except IndexError:
     print("usage: airquality-process INPUT-FILE REGION-FILE OUTPUT-FILE")
     sys.exit(1)
 
-date_help = pd.read_csv('date_help.csv')
-frames = [date_help,df]
-df = pd.concat(frames)
 
 # one hot enconding for region
 X = df['region']
 X_hot = pd.get_dummies(X)
-#X_hot.columns = region['Region']
+X_hot.columns = region['Region']
 df = X_hot.join(df)
 
 # one hot encoding for date
 dates = df['date']
+
+# result = result.drop(['date'], axis=1)
 dates_sep = [date.split('-') for date in dates]
+
 date_fields = []
 for (year, month, day) in dates_sep:
     datetime_obj = datetime.datetime(int(year), int(month), int(day))
     weekday = datetime_obj.strftime('%A')
     month = datetime_obj.strftime('%B')
-    date_fields.append([year, month, weekday])
+    date_fields.append([month, weekday])
 
 date_fields = pd.DataFrame(date_fields)
-date_fields.columns = ('Year', 'Month', 'Weekday')
-
-# add column year
-#df['Year'] = date_fields['Year'] 
-#df = date_fields.join(df)
-df['Year'] = df['date'].apply(lambda x: x.split('-')[0])
-
+date_fields.columns = ('Month', 'Weekday')
 
 date_hot = pd.DataFrame([])
 for column in ['Month', 'Weekday']:
@@ -63,10 +57,7 @@ for column in ['Month', 'Weekday']:
     date_hot[dummies.columns] = dummies
 
 df  = date_hot.join(df) 
-df = df[(df.Year == '2018')]
-df = df.drop_duplicates(subset='region')
 
-df.to_csv(out_file, index = False)
 # move mortality rate as first column
 cols = list(df)
 if 'mortality_rate' in cols:
@@ -75,13 +66,13 @@ if 'mortality_rate' in cols:
     # use ix to reorder
     df = df.ix[:, cols]
 
-# drop unnecessary columns 'Id' 
-df = df.drop(['date', 'region'], axis = 1)
+# drop unnecessary columns 
+df = df.drop(['Id', 'date', 'region'], axis = 1)
 print(df.columns)
-df.to_csv(out_file, index = False)
 
 # use fancyimpute to fill nan values
 raw_normalized = KNN(k=3).fit_transform(df)
 normalized_data = pd.DataFrame(raw_normalized)
 normalized_data.columns = df.columns
-#normalized_data.to_csv(out_file, index=False)
+normalized_data.to_csv(out_file, index=False)
+
