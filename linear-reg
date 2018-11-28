@@ -57,10 +57,7 @@ print(lm.intercept_)
 coeff_train = pd.DataFrame(lm.coef_,X_train.columns, columns=['Coefficient'])
 print(coeff_train)
 
-# Predictions
-predictions = lm.predict(X_test)
-pred = pd.DataFrame(predictions)
-pred.to_csv('pred_2013.csv')
+
 # Metrics
 print('MAE:', metrics.mean_absolute_error(y_test, predictions))
 print('MSE:', metrics.mean_squared_error(y_test, predictions))
