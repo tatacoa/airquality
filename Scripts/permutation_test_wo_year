@@ -12,7 +12,8 @@ from sklearn.model_selection import train_test_split
 
 #
 
-train_file = 'train_year.csv'
+train_file = '../data/train_year.csv'
+#train_file = '../out/train_year.csv'
 
 n_estimators = 100
 
