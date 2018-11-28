@@ -28,7 +28,7 @@ test = test.join(pred)
 filtered = test[test.region == 'E12000006']
 colors = {'E12000007': 'red', 'E12000005': 'blue', 'E12000001': 'green', 'E12000006': 'black', 'E12000002': 'grey', 'E12000008': 'cyan', 'E12000004': 'pink', 'E12000003': 'brown', 'E12000009': 'yellow'}
 plt.scatter(test['date'], test['mortality_pred'], alpha = 0.4, s=5, c=test['region'].apply(lambda x: colors[x]), marker='.')
-plt.xticks(('2012-01-01','2013-01-01','2014-01-01','2014-12-31')(2012, 2013, 2014, 2015)])
+plt.xticks(('2012-01-01','2013-01-01','2014-01-01','2014-12-31')(2012, 2013, 2014, 2015))
 plt.ylabel('Mortality Rate')
 plt.xlabel('Date')
 plt.grid(axis= 'x', color='grey', linestyle='--', linewidth=1)
