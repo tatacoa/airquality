@@ -18,11 +18,11 @@ pred = pd.read_csv('../out/pred_2013.csv')
 pred = pred.drop(columns=['Unnamed: 0'])
 pred.columns = ['mortality_pred']
 test = pd.read_csv('../data/test.csv')
-print(test.date.head())
+#print(test.date.head())
 print(test.date.min())
 print(test.date.max())
-print(pred.shape)
-print(test['date'].shape)
+#print(pred.shape)
+#print(test['date'].shape)
 
 test = test.join(pred)
 filtered = test[test.region == 'E12000006']
