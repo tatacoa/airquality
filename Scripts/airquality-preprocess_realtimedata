@@ -25,7 +25,7 @@ except IndexError:
     print("usage: airquality-process INPUT-FILE REGION-FILE OUTPUT-FILE")
     sys.exit(1)
 
-date_help = pd.read_csv('date_help.csv')
+date_help = pd.read_csv('../data/date_help.csv')
 frames = [date_help,df]
 df = pd.concat(frames)
 
