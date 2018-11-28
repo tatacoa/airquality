@@ -35,7 +35,7 @@ for place_name, api_resp in api_responses.items():
 
 pprint(data)
 df = pd.DataFrame(data, columns=column_names)
-df.to_csv('live_data.csv', index=False)
+df.to_csv('../out/realtime_data.csv', index=False)
 
 #### API help
 #resp = requests.get('https://api.waqi.info/search/?keyword=bogota&token=aa51ef4782205d1fadf8d5151cf29c235a707c98')
