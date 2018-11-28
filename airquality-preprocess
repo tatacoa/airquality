@@ -12,8 +12,6 @@ import matplotlib.pyplot as plt
 import pylab
 import seaborn as sns
 from fancyimpute import KNN
-plt.style.use('fivethirtyeight')
-pylab.rcParams['figure.figsize'] = (10.0, 8.0)
 
 # Supress unnecessary warnings so that presentation looks clean
 import warnings
