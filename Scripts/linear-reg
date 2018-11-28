@@ -78,6 +78,8 @@ estimators = LinearRegression()
 parameters = {'fit_intercept':[True,False], 'normalize':[True,False], 'copy_X':[True, False]}
 grid = GridSearchCV(estimators, parameters, cv=5)
 grid.fit(X_train, y_train)
+print()
+print('GridSearch Results:')
 print( "r2 / variance : ", grid.best_score_)
 print("Residual sum of squares: %.2f"
               % np.mean((grid.predict(X_test) - y_test) ** 2))
