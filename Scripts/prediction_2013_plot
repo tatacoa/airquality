@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 pred = pd.read_csv('../out/pred_2013.csv')
 pred = pred.drop(columns=['Unnamed: 0'])
 pred.columns = ['mortality_pred']
-test = pd.read_csv('test.csv')
+test = pd.read_csv('../data/test.csv')
 print(test.date.head())
 print(test.date.min())
 print(test.date.max())
