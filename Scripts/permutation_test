@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 #
 
-train_file = 'train.csv'
+train_file = '../data/train.csv'
 
 n_estimators = 100
 
@@ -47,7 +47,7 @@ neg_mse, permutation_scores, pvalue = permutation_test_score(
     cv = [[ train_i, test_i ]], n_permutations = n_permutations )    
 
 rmse = sqrt( abs( neg_mse ))
-print("RMSE: {:.4f}, p value : {:.2%}".format( rmse, pvalue ))
+print("RMSE: {:.4f}, p value : {:.2}".format( rmse, pvalue ))
 
 
 #
