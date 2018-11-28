@@ -40,7 +40,7 @@ print('Test  shape: ', test.shape)
 print(" ")
 print('Train columns: ')
 pprint(train.columns)
-print('Train columns: ')
+print('Test columns: ')
 pprint(test.columns)
 # move year as first column in test file
 cols = list(test)
