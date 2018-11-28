@@ -12,8 +12,6 @@ import matplotlib.pyplot as plt
 import pylab
 import seaborn as sns
 from fancyimpute import KNN
-plt.style.use('fivethirtyeight')
-pylab.rcParams['figure.figsize'] = (10.0, 8.0)
 
 # Supress unnecessary warnings so that presentation looks clean
 import warnings
@@ -27,10 +25,6 @@ try:
 except IndexError:
     print("usage: airquality-process INPUT-FILE REGION-FILE OUTPUT-FILE")
     sys.exit(1)
-
-date_help = pd.read_csv('date_help.csv')
-frames = [date_help,df]
-df = pd.concat(frames)
 
 # one hot enconding for region
 X = df['region']
@@ -66,7 +60,6 @@ df  = date_hot.join(df)
 df = df[(df.Year == '2018')]
 df = df.drop_duplicates(subset='region')
 
-df.to_csv(out_file, index = False)
 # move mortality rate as first column
 cols = list(df)
 if 'mortality_rate' in cols:
@@ -84,4 +77,4 @@ df.to_csv(out_file, index = False)
 raw_normalized = KNN(k=3).fit_transform(df)
 normalized_data = pd.DataFrame(raw_normalized)
 normalized_data.columns = df.columns
-#normalized_data.to_csv(out_file, index=False)
+normalized_data.to_csv(out_file, index=False)
