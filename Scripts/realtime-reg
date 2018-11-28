@@ -136,7 +136,7 @@ api_results= {
 import json
 
 data = json.dumps(api_results)
-with open('./web/data.js', 'w') as f:
+with open('../web/data.js', 'w') as f:
     f.write('data = ' + data)
 
 
