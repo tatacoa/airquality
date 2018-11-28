@@ -43,7 +43,7 @@ neg_mse, permutation_scores, pvalue = permutation_test_score(
     cv = [[ train_i, test_i ]], n_permutations = n_permutations )    
 
 rmse = sqrt( abs( neg_mse ))
-print("RMSE: {:.4f}, p value : {:.2%}".format( rmse, pvalue ))
+print("RMSE: {:.4f}, p value : {:.2}".format( rmse, pvalue ))
 
 
 #
@@ -51,7 +51,7 @@ print("RMSE: {:.4f}, p value : {:.2%}".format( rmse, pvalue ))
 plt.hist( permutation_scores, 20, label = 'Permutation scores' )
 ylim = plt.ylim()
 
-plt.plot( 2 * [neg_mse], ylim, '--g', linewidth=3, label='MSE (p value: {:.2%})'.format( pvalue ))
+plt.plot( 2 * [neg_mse], ylim, '--g', linewidth=3, label='MSE (p value: {:.2})'.format( pvalue ))
 
 plt.ylim( ylim )
 plt.legend()
