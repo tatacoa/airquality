@@ -11,8 +11,8 @@ from matplotlib import pyplot as plt
 
 #
 
-train_file = '../data/train.csv'
-
+#train_file = '../data/train.csv'
+train_file = '../out/train_year.csv'
 n_estimators = 100
 
 cv = 5                    # 2-fold validation, for speed
