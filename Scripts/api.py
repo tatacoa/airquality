@@ -25,6 +25,7 @@ for place_name, (lat, lon) in COORDS.items():
     resp.raise_for_status()
     api_responses[place_name] = resp.json()
 
+pprint(api_responses)
 data = []
 column_names = ('date', 'region', 'O3', 'PM10', 'PM25', 'NO2')
 for place_name, api_resp in api_responses.items():
