@@ -39,7 +39,7 @@ print('Test  shape: ', test.shape)
 print(" ")
 print('Train columns: ')
 pprint(train.columns)
-print('Train columns: ')
+print('Test columns: ')
 pprint(test.columns)
 
 y = train['mortality_rate']
