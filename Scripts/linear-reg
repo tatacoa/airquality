@@ -55,6 +55,9 @@ print(lm.intercept_)
 coeff_train = pd.DataFrame(lm.coef_,X_train.columns, columns=['Coefficient'])
 print(coeff_train)
 
+# Predictions
+predictions = lm.predict(X_test)
+pred = pd.DataFrame(predictions)
 
 # Metrics
 print('MAE:', metrics.mean_absolute_error(y_test, predictions))
