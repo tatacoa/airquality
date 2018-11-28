@@ -14,7 +14,7 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings("ignore")
 
-pred = pd.read_csv('pred_2013.csv')
+pred = pd.read_csv('../out/pred_2013.csv')
 pred = pred.drop(columns=['Unnamed: 0'])
 pred.columns = ['mortality_pred']
 test = pd.read_csv('test.csv')
