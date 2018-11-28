@@ -51,6 +51,7 @@ lm = LinearRegression()
 lm.fit(X_train,y_train)
 
 #Model evaluation
+print('Intercept y axis')
 print(lm.intercept_)
 coeff_train = pd.DataFrame(lm.coef_,X_train.columns, columns=['Coefficient'])
 print(coeff_train)
