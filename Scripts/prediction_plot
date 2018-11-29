@@ -19,12 +19,12 @@ pred = pred.drop(columns=['Unnamed: 0'])
 pred.columns = ['mortality_pred']
 test = pd.read_csv('../data/test.csv')
 #print(test.date.head())
-print(test.date.min())
-print(test.date.max())
 #print(pred.shape)
 #print(test['date'].shape)
 
 test = test.join(pred)
+print(test.date.min())
+print(test.date.max())
 filtered = test[test.region == 'E12000006']
 colors = {'E12000007': 'red', 'E12000005': 'blue', 'E12000001': 'green', 'E12000006': 'black', 'E12000002': 'grey', 'E12000008': 'cyan', 'E12000004': 'pink', 'E12000003': 'brown', 'E12000009': 'yellow'}
 plt.scatter(test['date'], test['mortality_pred'], alpha = 0.4, s=5, c=test['region'].apply(lambda x: colors[x]), marker='.')
